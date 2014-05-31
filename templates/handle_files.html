@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Upload/Download</title>
+    <link type="text/css" rel="stylesheet" href="/static/css/handle_files.css">
+    <script type="text/javascript" src="/static/js/jquery-1.10.2.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+    $('.tabs .tab-links a').on('click', function(e)  {
+        var currentAttrValue = $(this).attr('href');
+
+        // Show/Hide Tabs
+        $('.tabs ' + currentAttrValue).show().siblings().hide();
+
+        // Change/remove current tab to active
+        $(this).parent('li').addClass('active').siblings().removeClass('active');
+
+        e.preventDefault();
+    });
+});
+    </script>
+</head>
+<body>
+    <div class="logout"> <a href="/logout/">Logout</a></div>
+    <h3>Welcome, </h3><br>
+    <hr>
+    <div class="upload_file">
+
+    </div>
+    <div class="download_file">
+
+    </div>
+<div class="tabs">
+    <ul class="tab-links">
+
+        <li class="active"><a href="#tab1">Upload File</a></li>
+        <li><a href="#tab2">View and Download Files</a></li>
+    </ul>
+
+    <div class="tab-content">
+        <div id="tab1" class="tab active">
+        <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+            {% if not form_saved %}
+{#                <input type="file" name="employee_file" id="file">#}
+                {{ file_form.file }}{{ file_form.file.errors }}
+                <button type="submit" name="save" id="upload"><i class="icon-envelope"></i>UPLOAD FILE</button>
+         </form>
+            {% else %}
+                <h3>File Uploaded Successfully</h3>
+            {% endif %}
+
+        </div>
+
+        <div id="tab2" class="tab">
+        <ul>
+            {% for files in all_files %}
+                <li>File Name : {{ files.name }}</li>
+                <span>Download  &nbsp;&nbsp;&nbsp;<a href="/media/uploaded_files/{{ files.name }}"> {{ files.name }}</a></span>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

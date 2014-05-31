@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+</head>
+<body>
+    <section class="sign-in">
+
+        <h2>Sign in into your account</h2>
+
+            <form method="post" class="contact-form " id="sign-in" action="">
+                {% csrf_token %}
+                {{ user_error_msg }}
+                {{ msg }}
+                <fieldset>
+                    <label for="name">Username</label>
+                    <input name="username" type="text" id="name" class="form-text" placeholder="Username" required/>
+                </fieldset>
+
+                <fieldset>
+                    <label for="password">Password</label>
+                    <input name="password" type="password" id="password" class="form-text" placeholder="Password" required/>
+                </fieldset>
+                <fieldset class="form-actions">
+                    <input type="submit" value="Submit" />
+                </fieldset>
+            </form>
+
+    </section>
+</body>
+</html>
